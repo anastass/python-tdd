@@ -55,6 +55,13 @@ class TestPara(unittest.TestCase):
         self.assertEqual("one two\nthree\nfourfiv-\nesix", o.format_text("one two three fourfivesix"), \
                          "long word was not broken correctly")
 
+    def test_multiple_lines(self):
+        o = para.Para(8)
+        # TODO: implement these tests
+        # self.assertEqual("one two\nthree\n\nfour\nfive six", o.format_text("one two three\n\nfour five six"), \
+        #                  "paragraphs are not handled correctly")
+        # self.assertEqual("one two\nthree\n\nfour\nfive six", o.format_text("one two\n three\n \nfour five six"), \
+        #                  "whitespace between paragraphs are not handled correctly")
 
 
 if __name__ == '__main__':
