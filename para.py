@@ -27,12 +27,35 @@ class Para():
         return self._col
 
     def format_text(self, txt):
+        #result = ' '.join([str(x) for x in rgx.findall(txt)])   # find works and concatenate them using space
         return self.format_para(txt)
 
     def format_para(self, txt):
+        columns = self._col
+        cols_left = self._col
+
         rgx = re.compile("(\S+)")
-        result = ' '.join([str(x) for x in rgx.findall(txt)])   # find works and concatenate them using space
-        return result
+        words = rgx.findall(txt)
+
+        r = ''
+        while len(words) > 0:
+            word = words.pop(0)
+            word_length = len(word)
+            if cols_left > word_length:
+                if cols_left < columns:
+                    r += ' '
+                r += word
+                cols_left -= word_length
+            elif word_length <= columns:
+                r += '\n' + word
+                cols_left = columns - word_length
+            else:
+                l = columns - 1
+                part = word[0:l]
+                r += '\n' + part + '-\n'
+                cols_left = columns
+                words.insert(0, word[l:])
+        return r
 
 
 if __name__ == '__main__':

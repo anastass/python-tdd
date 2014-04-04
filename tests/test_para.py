@@ -37,6 +37,7 @@ class TestPara(unittest.TestCase):
 
     # test how formatter strips spaces
     def test_formatting(self):
+        print self._para.format_text("")
         self.assertEqual("", self._para.format_text(""), "empty string is not formatted correctly")
         self.assertEqual("abc", self._para.format_text("abc"), "inputted sting was changed")
         self.assertEqual("abc", self._para.format_text(" abc"), "leading space not was stripped")
@@ -47,7 +48,13 @@ class TestPara(unittest.TestCase):
     def test_wrapping(self):
         o = para.Para(8)
         self.assertEqual("abc def", o.format_text("abc    def"), "short line is not formatted correctly")
-        #self.assertEqual("one two\nthree", o.format_text("one two three"), "short line is not formatted correctly")
+        self.assertEqual("one two\nthree", o.format_text("one two three"), "short line is not formatted correctly")
+        self.assertEqual("one two\nthree", o.format_text("one two three"), "third word was not wrapped correctly")
+        self.assertEqual("one two\nthree go", o.format_text("one two three go"), \
+                         "packing to exactly the end of the line failed")
+        self.assertEqual("one two\nthree\nfourfiv-\nesix", o.format_text("one two three fourfivesix"), \
+                         "long word was not broken correctly")
+
 
 
 if __name__ == '__main__':
